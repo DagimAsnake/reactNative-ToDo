@@ -29,6 +29,25 @@ const DetailToDoScreen = () => {
     }
   };
 
+  const handleRemovePress = async () => {
+    try {
+      const response = await fetch(`http://192.168.43.142:8080/todo/delete/${todoId}`, {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json',
+        }
+      });
+      if (!response.ok) {
+        throw new Error('Error: ' + response.status);
+      }
+      const data = await response.json();
+      navigation.goBack();
+      console.log(data);
+    } catch (error) {
+      console.error('Error fetching todos:', error);
+    }
+  };
+
   return (
     <View className="flex-1 m-4">
       <View className="bg-white rounded-lg p-5 shadow-md">
@@ -38,7 +57,7 @@ const DetailToDoScreen = () => {
         <View className="flex flex-row justify-center m-5 items-center">
           <TouchableOpacity
             className="bg-red-500 rounded-lg p-4 px-5 mx-2"
-            onPress={""}
+            onPress={handleRemovePress}
           >
             <Text className="text-white font-bold">Remove</Text>
           </TouchableOpacity>
