@@ -7,12 +7,13 @@ const ListToDoScreen = () => {
   const navigation = useNavigation();
   const isFocused = useIsFocused();
   const [toDoItems, setToDoItems] = useState([]);
+  const [isChecked, setIsChecked] = useState(false);
 
   useEffect(() => {
     if (isFocused) {
       fetchTodos();
     }
-  }, [isFocused]);
+  }, [isFocused, isChecked]);
 
   const fetchTodos = async () => {
     try {
@@ -29,8 +30,23 @@ const ListToDoScreen = () => {
       navigation.navigate('Detail ToDo');
     };
 
-    const handleCheckBox = () => {
-      // Handle checkbox logic here
+    const handleCheckBox = async () => {
+      try {
+        const response = await fetch(`http://192.168.43.142:8080/todo/check/${item._id}`, {
+          method: 'PUT',
+          headers: {
+            'Content-Type': 'application/json',
+          }
+        });
+        if (!response.ok) {
+          throw new Error('Error: ' + response.status);
+        }
+        const data = await response.json();
+        setIsChecked(!isChecked);
+        console.log(data); 
+      } catch (error) {
+        console.error('Error fetching todos:', error);
+      }
     };
 
     return (
