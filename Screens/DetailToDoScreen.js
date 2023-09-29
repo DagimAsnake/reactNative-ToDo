@@ -48,6 +48,10 @@ const DetailToDoScreen = () => {
     }
   };
 
+  const handleUpdatePress = () => {
+    navigation.navigate('Update ToDo', { todoId: todoId });
+  };
+
   return (
     <View className="flex-1 m-4">
       <View className="bg-white rounded-lg p-5 shadow-md">
@@ -63,7 +67,7 @@ const DetailToDoScreen = () => {
           </TouchableOpacity>
           <TouchableOpacity
             className="bg-blue-500 rounded-lg p-4 px-5 mx-2"
-            onPress={""}
+            onPress={handleUpdatePress}
           >
             <Text className="text-white font-bold">Update</Text>
           </TouchableOpacity>

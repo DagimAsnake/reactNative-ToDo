@@ -10,6 +10,7 @@ import AddToDoScreen from "./Screens/AddToDoScreen";
 import DoneToDoScreen from "./Screens/DoneToDoScreen";
 import ListToDoScreen from "./Screens/ListToDoScreen";
 import DetailToDoScreen from "./Screens/DetailToDoScreen";
+import UpdateToDoScreen from "./Screens/UpdateToDoScreen";
 
 const BottomTab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator()
@@ -75,6 +76,7 @@ export default function App() {
           <Stack.Screen name="BottomNav" component={BottomNav} options={{ headerShown: false }} />
           <Stack.Screen name="Add ToDo" component={AddToDoScreen} options={{ title: "Add To Do" }} />
           <Stack.Screen name="Detail ToDo" component={DetailToDoScreen} />
+          <Stack.Screen name="Update ToDo" component={UpdateToDoScreen} options={{ title: "Update To Do" }} />
         </Stack.Navigator>
       </NavigationContainer>
     </>
