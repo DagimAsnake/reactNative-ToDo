@@ -27,7 +27,7 @@ const ListToDoScreen = () => {
 
   const renderToDo = ({ item }) => {
     const handlePress = () => {
-      navigation.navigate('Detail ToDo');
+      navigation.navigate('Detail ToDo', { todoId: item._id });
     };
 
     const handleCheckBox = async () => {
@@ -66,7 +66,7 @@ const ListToDoScreen = () => {
       </View>
     );
   }
-  
+
   return (
     <View className="flex-1">
       <FlatList data={toDoItems} keyExtractor={(item) => item._id} renderItem={renderToDo} />

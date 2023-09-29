@@ -27,7 +27,7 @@ const DoneToDoScreen = () => {
 
   const renderToDo = ({ item }) => {
     const handlePress = () => {
-      navigation.navigate("Detail ToDo")
+      navigation.navigate('Detail ToDo', { todoId: item._id });
     };
 
     const handleCheckBox = async () => {

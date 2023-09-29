@@ -17,7 +17,7 @@ const AddToDoScreen = () => {
 
   const handleFormSubmit = async () => {
     if (title.trim() === '' || description.trim() === '') {
-      Alert.alert('Validation Error', 'Title and Description are required');
+      Alert.alert('Warnning', 'Title and Description are required');
       return;
     }
 
@@ -26,7 +26,7 @@ const AddToDoScreen = () => {
       description: description,
       checked: false
     };
-    
+
     try {
       const response = await fetch('http://192.168.43.142:8080/todo/add', {
         method: 'POST',
@@ -35,12 +35,12 @@ const AddToDoScreen = () => {
         },
         body: JSON.stringify(newTodo),
       });
-  
+
       if (!response.ok) {
         throw new Error('Error: ' + response.status);
       }
       const data = await response.json();
-      console.log(data); 
+      console.log(data);
       navigation.navigate("BottomNav")
     } catch (error) {
       console.error(error);
