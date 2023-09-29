@@ -63,8 +63,8 @@ const ListToDoScreen = () => {
 
     return (
       <Pressable onPress={handlePress}>
-        <View className="flex-row p-4 items-center border-b mx-3">
-          <Text className="flex-1 text-lg">{item.title}</Text>
+        <View className="flex-row p-4 items-center border-blue-500 border-b mx-3">
+          <Text className="flex-1 text-lg text-blue-500">{item.title}</Text>
           <CheckBox
             checked={item.checked}
             onPress={handleCheckBox}

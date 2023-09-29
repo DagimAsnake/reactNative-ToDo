@@ -39,6 +39,7 @@ function BottomNav() {
         name="List ToDo"
         component={ListToDoScreen}
         options={{
+          title: "To Do",
           tabBarLabel: 'List',
           tabBarIcon: ({ color, size }) => (
             <FontAwesome5 name="clipboard-list" size={size} color={color} />
@@ -49,6 +50,7 @@ function BottomNav() {
         name="Done ToDo"
         component={DoneToDoScreen}
         options={{
+          title: "Done",
           tabBarLabel: 'Done',
           tabBarIcon: ({ color, size }) => (
             <FontAwesome5 name="clipboard-check" size={size} color={color} />
@@ -64,9 +66,14 @@ export default function App() {
     <>
       <StatusBar style="light" />
       <NavigationContainer>
-        <Stack.Navigator >
+        <Stack.Navigator
+          screenOptions={{
+            headerStyle: { backgroundColor: '#3f51b5' },
+            headerTintColor: "white"
+          }}
+        >
           <Stack.Screen name="BottomNav" component={BottomNav} options={{ headerShown: false }} />
-          <Stack.Screen name="Add ToDo" component={AddToDoScreen} />
+          <Stack.Screen name="Add ToDo" component={AddToDoScreen} options={{ title: "Add To Do" }} />
           <Stack.Screen name="Detail ToDo" component={DetailToDoScreen} />
         </Stack.Navigator>
       </NavigationContainer>

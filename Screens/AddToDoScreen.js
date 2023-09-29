@@ -22,16 +22,16 @@ const AddToDoScreen = () => {
   return (
     <View className="flex-1 pt-4 m-5">
       <View className="flex items-center">
-        <Text className="text-2xl font-bold mb-4">Add To Do</Text>
+        <Text className="text-2xl font-bold mb-4 text-blue-500">Add To Do</Text>
       </View>
       <TextInput
-        className="border-2 border-gray-500 rounded-lg p-3 mb-4 w-full"
+        className="border-2 border-blue-500 rounded-lg p-3 mb-4 w-full"
         placeholder="Title"
         value={title}
         onChangeText={handleTitleChange}
       />
       <TextInput
-        className="border-2 border-gray-500 rounded-lg p-3 mb-4 w-full h-32"
+        className="border-2 border-blue-500 rounded-lg p-3 mb-4 w-full h-32"
         placeholder="Description"
         multiline
         numberOfLines={4}
