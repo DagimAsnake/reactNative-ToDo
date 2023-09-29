@@ -8,6 +8,7 @@ import IconButton from "./Components/Ui/IconButton";
 import AddToDoScreen from "./Screens/AddToDoScreen";
 import DoneToDoScreen from "./Screens/DoneToDoScreen";
 import ListToDoScreen from "./Screens/ListToDoScreen";
+import DetailToDoScreen from "./Screens/DetailToDoScreen";
 
 const BottomTab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator()
@@ -33,6 +34,7 @@ export default function App() {
         <Stack.Navigator >
           <Stack.Screen name="BottomNav" component={BottomNav} options={{ headerShown: false }} />
           <Stack.Screen name="Add ToDo" component={AddToDoScreen} />
+          <Stack.Screen name="Detail ToDo" component={DetailToDoScreen} />
         </Stack.Navigator>
       </NavigationContainer>
     </>

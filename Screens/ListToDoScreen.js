@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Text, View, FlatList, Pressable } from 'react-native';
 import { CheckBox } from 'react-native-elements';
+import { useNavigation } from "@react-navigation/native"
 
 const ToDo = [
   {
@@ -42,11 +43,12 @@ const ToDo = [
 ];
 
 const ListToDoScreen = () => {
+  const navigation = useNavigation()
   const [toDoItems, setToDoItems] = useState(ToDo);
 
   const renderToDo = ({ item }) => {
     const handlePress = () => {
-      // Handle press event for the card
+      navigation.navigate("Detail ToDo")
     };
 
     const handleCheckBox = () => {
@@ -61,7 +63,7 @@ const ListToDoScreen = () => {
 
     return (
       <Pressable onPress={handlePress}>
-        <View className="flex-row p-4 items-center border-b">
+        <View className="flex-row p-4 items-center border-b mx-3">
           <Text className="flex-1 text-lg">{item.title}</Text>
           <CheckBox
             checked={item.checked}
