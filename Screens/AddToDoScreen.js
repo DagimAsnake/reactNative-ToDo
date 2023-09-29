@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
-import { Text, TextInput, View, TouchableOpacity } from 'react-native';
+import { Text, TextInput, View, TouchableOpacity, Alert } from 'react-native';
+import { useNavigation } from "@react-navigation/native"
 
 const AddToDoScreen = () => {
+  const navigation = useNavigation()
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
 
@@ -13,10 +15,36 @@ const AddToDoScreen = () => {
     setDescription(text);
   };
 
-  const handleFormSubmit = () => {
-    // Handle form submission
-    console.log('Title:', title);
-    console.log('Description:', description);
+  const handleFormSubmit = async () => {
+    if (title.trim() === '' || description.trim() === '') {
+      Alert.alert('Validation Error', 'Title and Description are required');
+      return;
+    }
+
+    const newTodo = {
+      title: title,
+      description: description,
+      checked: false
+    };
+    
+    try {
+      const response = await fetch('http://192.168.43.142:8080/todo/add', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(newTodo),
+      });
+  
+      if (!response.ok) {
+        throw new Error('Error: ' + response.status);
+      }
+      const data = await response.json();
+      console.log(data); 
+      navigation.navigate("BottomNav")
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   return (
