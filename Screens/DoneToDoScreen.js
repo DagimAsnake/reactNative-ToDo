@@ -62,6 +62,14 @@ const DoneToDoScreen = () => {
     );
   };
 
+  if (!toDoItems || toDoItems.length === 0) {
+    return (
+      <View className="flex flex-1 justify-center items-center">
+        <Text className="text-xl text-blue-500">No ToDo Done yet. Finish some ToDO's.</Text>
+      </View>
+    );
+  }
+
   return (
     <View className="flex-1">
       <FlatList data={toDoItems} keyExtractor={(item) => item._id} renderItem={renderToDo} />
