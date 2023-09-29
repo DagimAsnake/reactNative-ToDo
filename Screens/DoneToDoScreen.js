@@ -1,46 +1,52 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Text, View, FlatList, Pressable } from 'react-native';
 import { CheckBox } from 'react-native-elements';
-import { useNavigation } from "@react-navigation/native"
-
-const ToDo = [
-  {
-    id: '1',
-    title: 'first',
-    description: 'first first first first first first first',
-    checked: true,
-  },
-  {
-    id: '2',
-    title: 'second',
-    description: 'second second second second second second second',
-    checked: true,
-  },
-  {
-    id: '3',
-    title: 'fourth',
-    description: 'fourth fourth fourth fourth fourth fourth fourth',
-    checked: true,
-  },
-];
+import { useNavigation, useIsFocused } from '@react-navigation/native';
 
 const DoneToDoScreen = () => {
   const navigation = useNavigation()
-  const [toDoItems, setToDoItems] = useState(ToDo);
+  const isFocused = useIsFocused();
+  const [toDoItems, setToDoItems] = useState([]);
+  const [isChecked, setIsChecked] = useState(true);
+
+  useEffect(() => {
+    if (isFocused) {
+      fetchTodos();
+    }
+  }, [isFocused, isChecked]);
+
+  const fetchTodos = async () => {
+    try {
+      const response = await fetch('http://192.168.43.142:8080/todo/done');
+      const data = await response.json();
+      setToDoItems(data.todos);
+    } catch (error) {
+      console.error('Error fetching todos:', error);
+    }
+  };
 
   const renderToDo = ({ item }) => {
     const handlePress = () => {
       navigation.navigate("Detail ToDo")
     };
 
-    const handleCheckBox = () => {
-      const updatedItems = toDoItems.map((todo) => {
-        if (todo.id === item.id) {
-          return { ...todo, checked: !todo.checked };
+    const handleCheckBox = async () => {
+      try {
+        const response = await fetch(`http://192.168.43.142:8080/todo/checkdone/${item._id}`, {
+          method: 'PUT',
+          headers: {
+            'Content-Type': 'application/json',
+          }
+        });
+        if (!response.ok) {
+          throw new Error('Error: ' + response.status);
         }
-        return todo;
-      });
-      setToDoItems(updatedItems);
+        const data = await response.json();
+        setIsChecked(!isChecked);
+        console.log(data); 
+      } catch (error) {
+        console.error('Error fetching todos:', error);
+      }
     };
 
     return (
@@ -58,7 +64,7 @@ const DoneToDoScreen = () => {
 
   return (
     <View className="flex-1">
-      <FlatList data={toDoItems} keyExtractor={(item) => item.id} renderItem={renderToDo} />
+      <FlatList data={toDoItems} keyExtractor={(item) => item._id} renderItem={renderToDo} />
     </View>
   );
 };
